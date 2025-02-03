@@ -3,6 +3,7 @@
 
 #Other large files to ignore
 *.abf 
+*.xlsx
 
 #Ignore Instructions
 Instructions/
