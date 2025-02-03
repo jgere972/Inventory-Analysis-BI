@@ -4,6 +4,7 @@
 #Other large files to ignore
 *.abf 
 *.xlsx
+*.csv
 
 #Ignore Instructions and all larges files (data) 
 Instructions/
