@@ -1,0 +1,1319 @@
+{
+  "compatibilityLevel": 1567,
+  "model": {
+    "annotations": [
+      {
+        "name": "PBI_QueryOrder",
+        "value": "[\"critical_vendors\",\"high_invoice_count\",\"inv_idle_time\",\"monthly_sales\",\"quarter_sales\",\"recalculated_inv_pricing_part1\",\"recalculated_inv_pricing_part2\",\"recalculated_inv_pricing_part4\",\"recalculated_inv_pricing_part3\",\"recalculated_inv_pricing_part5\",\"recalculated_inv_pricing_part6\",\"vendor_store_sales\",\"vendors_sales_quantities\"]"
+      },
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "1"
+      },
+      {
+        "name": "PBIDesktopVersion",
+        "value": "2.138.1452.0 (24.11)"
+      },
+      {
+        "name": "PBI_ProTooling",
+        "value": "[\"DevMode\"]"
+      }
+    ],
+    "culture": "en-CA",
+    "cultures": [
+      {
+        "name": "en-CA",
+        "linguisticMetadata": {
+          "content": {
+            "Language": "en-US",
+            "Version": "1.0.0"
+          },
+          "contentType": "json"
+        }
+      }
+    ],
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-CA",
+    "tables": [
+      {
+        "name": "critical_vendors",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Vendor Name",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "dfc9cbf7-4a85-468d-9e9e-c02b1d5d9120",
+            "sourceColumn": "Vendor Name",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "ID",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "59ddbffd-1f09-4a4a-9ec9-8358ea27d3f5",
+            "sourceColumn": "ID",
+            "summarizeBy": "count"
+          },
+          {
+            "name": "Invoice Count",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "9879e478-6e85-49c8-a076-667bfa99ca93",
+            "sourceColumn": "Invoice Count",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Total Owing",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "8a09334e-8711-4c08-90a1-06d8cf3d6f17",
+            "sourceColumn": "Total Owing",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Sales Count",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "fbfc492c-757b-4803-ab02-9cfcfe1045d3",
+            "sourceColumn": "Sales Count",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Total Sales",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "d620cb6a-3248-4747-a358-cef0134897bf",
+            "sourceColumn": "Total Sales",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Total Quantities",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "ee350881-0aff-48ac-86b4-079c0ea93436",
+            "sourceColumn": "Total Quantities",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "49c0a349-b0af-472f-8abd-5a11ca6a8199",
+        "partitions": [
+          {
+            "name": "critical_vendors",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    critical_vendors_part1_Sheet = Source{[Item=\"critical_vendors_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(critical_vendors_part1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"vendor_name\", type text}, {\"id\", Int64.Type}, {\"invoice_count\", Int64.Type}, {\"total_owing\", type number}, {\"sales_count\", Int64.Type}, {\"total_sales\", type number}, {\"total_quantities\", Int64.Type}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"vendor_name\", \"Vendor Name\"}, {\"id\", \"ID\"}, {\"invoice_count\", \"Invoice Count\"}, {\"total_owing\", \"Total Owing\"}, {\"sales_count\", \"Sales Count\"}, {\"total_sales\", \"Total Sales\"}, {\"total_quantities\", \"Total Quantities\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "high_invoice_count",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Vendor Number",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "DataType"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "56edcc39-5b4e-42ab-b44a-4eb17475cd7f",
+            "sourceColumn": "Vendor Number",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Invoice Count",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "6cf01c5a-f7eb-4ebb-a4a3-e80e12b0bb00",
+            "sourceColumn": "Invoice Count",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "dcf1611b-ab91-4f05-976e-5738f4ee53e4",
+        "partitions": [
+          {
+            "name": "high_invoice_count",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    high_invoice_count_part1_Sheet = Source{[Item=\"high_invoice_count_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(high_invoice_count_part1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"VendorNumber\", Int64.Type}, {\"invoice_count\", Int64.Type}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"VendorNumber\", \"Vendor Number\"}, {\"invoice_count\", \"Invoice Count\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "inv_idle_time",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Inventroy Idle Time Months",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "DataType"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "df627a29-37fd-49cd-9e56-23ff0dc0bc8d",
+            "sourceColumn": "Inventroy Idle Time Months",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Inventroy Idle Time Count",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "0d0b24d9-38e1-4bdd-be1d-3957ee5968af",
+            "sourceColumn": "Inventroy Idle Time Count",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "dacc988f-87b2-4159-8280-6463aaa522c2",
+        "partitions": [
+          {
+            "name": "inv_idle_time",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    inv_idle_time_part1_Sheet = Source{[Item=\"inv_idle_time_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(inv_idle_time_part1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"idle_time_inv_months\", Int64.Type}, {\"idle_time_inv_months_count\", Int64.Type}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"idle_time_inv_months\", \"Inventroy Idle Time Months\"}, {\"idle_time_inv_months_count\", \"Inventroy Idle Time Count\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "monthly_sales",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Month",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "72beec7c-20eb-4c38-b361-b5bf8a13a917",
+            "sourceColumn": "Month",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Quantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "f8c128b1-c512-4e0d-9330-5b8fd42d1595",
+            "sourceColumn": "Quantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Sales",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "9a22d472-de61-4b4d-b794-32355f99f378",
+            "sourceColumn": "Sales",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "b29db2eb-5a51-4410-aeed-31e2f4a282c1",
+        "partitions": [
+          {
+            "name": "monthly_sales",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    monthly_sales_part1_Sheet = Source{[Item=\"monthly_sales_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(monthly_sales_part1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"month_int\", Int64.Type}, {\"month\", type text}, {\"quantity\", Int64.Type}, {\"sales\", type number}}),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Changed Type\",{\"month_int\"}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Removed Columns\",{{\"month\", \"Month\"}, {\"quantity\", \"Quantity\"}, {\"sales\", \"Sales\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "quarter_sales",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Quarter",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "b155a044-8b9b-43ae-a260-88ad95e867e4",
+            "sourceColumn": "Quarter",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Sales",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "15f5e34e-4c08-446b-ad74-904f64b27e84",
+            "sourceColumn": "Sales",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "0d3bed4b-fa0b-4c86-8621-2383eecbb4b0",
+        "partitions": [
+          {
+            "name": "quarter_sales",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    quarter_sales_part1_Sheet = Source{[Item=\"quarter_sales_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(quarter_sales_part1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"quarter\", type text}, {\"sales\", type number}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"quarter\", \"Quarter\"}, {\"sales\", \"Sales\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "recalculated_inv_pricing_part1",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Brand",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "190d596c-5057-4fdc-85ae-dcab6104afe4",
+            "sourceColumn": "Brand",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Store",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "bc22747a-b4e9-448b-8eef-37016fe1c4a9",
+            "sourceColumn": "Store",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Original Price",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "37f866b9-c6a8-4d48-8088-0918885bf85e",
+            "sourceColumn": "Original Price",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "New Price",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "e0bdf005-2bba-4b22-babc-f164d5966a15",
+            "sourceColumn": "New Price",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Price Diff",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "c63203e0-409b-4e7f-ba4c-36de0c8f0627",
+            "sourceColumn": "Price Diff",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "9e5bea10-4268-4966-9c25-a10c73c1fd27",
+        "partitions": [
+          {
+            "name": "recalculated_inv_pricing_part1",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    recalculated_inv_pricing_part1_Sheet = Source{[Item=\"recalculated_inv_pricing_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(recalculated_inv_pricing_part1_Sheet,{{\"Column1\", Int64.Type}, {\"Column2\", Int64.Type}, {\"Column3\", type number}, {\"Column4\", type number}, {\"Column5\", type number}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"Column1\", \"Brand\"}, {\"Column2\", \"Store\"}, {\"Column3\", \"Original Price\"}, {\"Column4\", \"New Price\"}, {\"Column5\", \"Price Diff\"}}),",
+                "    #\"Appended Query\" = Table.Combine({#\"Renamed Columns\", recalculated_inv_pricing_part2, recalculated_inv_pricing_part3, recalculated_inv_pricing_part4, recalculated_inv_pricing_part5, recalculated_inv_pricing_part6}),",
+                "    #\"Filtered Rows\" = Table.SelectRows(#\"Appended Query\", each true),",
+                "    #\"Removed Columns\" = Table.RemoveColumns(#\"Filtered Rows\",{\"Column1\", \"Column2\", \"Column3\", \"Column4\", \"Column5\"})",
+                "in",
+                "    #\"Removed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "recalculated_inv_pricing_part2",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "5495fdc9-b830-4f9f-bb36-612c5981ae30",
+            "sourceColumn": "Column1",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column2",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "a7c522b0-9ce2-4b06-9d7d-1be78e929e63",
+            "sourceColumn": "Column2",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column3",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "737cbe3b-16e6-45f3-8847-6751ab1f76cf",
+            "sourceColumn": "Column3",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column4",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "5b55e12c-a5f1-4da5-8216-aab7984cbe23",
+            "sourceColumn": "Column4",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column5",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "21afccc4-73e3-41d4-917c-a71d07040e63",
+            "sourceColumn": "Column5",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "3dbf4468-275e-48b5-ab81-cc9c5e47f285",
+        "partitions": [
+          {
+            "name": "recalculated_inv_pricing_part2",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    recalculated_inv_pricing_part2_Sheet = Source{[Item=\"recalculated_inv_pricing_part2\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(recalculated_inv_pricing_part2_Sheet,{{\"Column1\", Int64.Type}, {\"Column2\", Int64.Type}, {\"Column3\", type number}, {\"Column4\", type number}, {\"Column5\", type number}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "recalculated_inv_pricing_part4",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "5f29c65c-db53-4c34-a3c5-23e16345cce2",
+            "sourceColumn": "Column1",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column2",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "1bf1df58-cca0-42f4-994d-c8df6e288836",
+            "sourceColumn": "Column2",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column3",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "b3452aee-8112-4162-a2ed-e8ecd7dd000f",
+            "sourceColumn": "Column3",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column4",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "13092329-17e4-46c8-a739-3f07801abd0c",
+            "sourceColumn": "Column4",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column5",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "1802cafe-fe99-4e41-873d-1bd25d26c944",
+            "sourceColumn": "Column5",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "adc2ddbc-b2b9-40d0-be1a-aad798d8196a",
+        "partitions": [
+          {
+            "name": "recalculated_inv_pricing_part4",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    recalculated_inv_pricing_part4_Sheet = Source{[Item=\"recalculated_inv_pricing_part4\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(recalculated_inv_pricing_part4_Sheet,{{\"Column1\", Int64.Type}, {\"Column2\", Int64.Type}, {\"Column3\", type number}, {\"Column4\", type number}, {\"Column5\", type number}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "recalculated_inv_pricing_part3",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "362c17df-9d1c-448d-83a2-1276ef379395",
+            "sourceColumn": "Column1",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column2",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "1641dc88-6a8d-46b4-9095-4af9c29ab8d8",
+            "sourceColumn": "Column2",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column3",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "649762bf-22c3-416d-a32c-ae5338577d18",
+            "sourceColumn": "Column3",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column4",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "c2868605-b5ca-4bf4-9916-05963efdd17f",
+            "sourceColumn": "Column4",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column5",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "90930af5-d05b-420c-adc5-ce68ebe26e1d",
+            "sourceColumn": "Column5",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "c271f528-2aa7-4646-a4a3-00490a796aa1",
+        "partitions": [
+          {
+            "name": "recalculated_inv_pricing_part3",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    recalculated_inv_pricing_part3_Sheet = Source{[Item=\"recalculated_inv_pricing_part3\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(recalculated_inv_pricing_part3_Sheet,{{\"Column1\", Int64.Type}, {\"Column2\", Int64.Type}, {\"Column3\", type number}, {\"Column4\", type number}, {\"Column5\", type number}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "recalculated_inv_pricing_part5",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "e8c81f95-5766-4318-9a96-bb7c7ff297a2",
+            "sourceColumn": "Column1",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column2",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "4cf81be8-e85c-450c-8b3e-0a81a639d7c1",
+            "sourceColumn": "Column2",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column3",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "302f1a3d-aea0-4ea3-abc2-511d470eb774",
+            "sourceColumn": "Column3",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column4",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "c781e722-f164-47dc-8dfb-a269f80cdeec",
+            "sourceColumn": "Column4",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column5",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "dfd0720b-04b8-4fe0-b810-96a66030fb2d",
+            "sourceColumn": "Column5",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "4fb664fb-f61f-4bde-ac41-3506e3a2ca60",
+        "partitions": [
+          {
+            "name": "recalculated_inv_pricing_part5",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    recalculated_inv_pricing_part5_Sheet = Source{[Item=\"recalculated_inv_pricing_part5\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(recalculated_inv_pricing_part5_Sheet,{{\"Column1\", Int64.Type}, {\"Column2\", Int64.Type}, {\"Column3\", type number}, {\"Column4\", type number}, {\"Column5\", type number}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "recalculated_inv_pricing_part6",
+        "annotations": [
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Column1",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "5a301314-c42a-4cc0-97d8-b8497363b993",
+            "sourceColumn": "Column1",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column2",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "3f30ee07-7710-4458-8599-3d9e5b9037c4",
+            "sourceColumn": "Column2",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column3",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "ec512595-aa7e-437b-8cdc-4ebe720b7c34",
+            "sourceColumn": "Column3",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column4",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "7bf3b2cc-1c06-4998-a72f-336ea0b148f6",
+            "sourceColumn": "Column4",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Column5",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "c5f7b6e8-d324-469b-9fd9-2b603e065154",
+            "sourceColumn": "Column5",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "982b2301-d6d9-4ad5-8540-9c3f835f7939",
+        "partitions": [
+          {
+            "name": "recalculated_inv_pricing_part6",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    recalculated_inv_pricing_part6_Sheet = Source{[Item=\"recalculated_inv_pricing_part6\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(recalculated_inv_pricing_part6_Sheet,{{\"Column1\", Int64.Type}, {\"Column2\", Int64.Type}, {\"Column3\", type number}, {\"Column4\", type number}, {\"Column5\", type number}})",
+                "in",
+                "    #\"Changed Type\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "vendor_store_sales",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "Store",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "DataType"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "98270e2c-295a-44b6-a85f-39f11ac20eb8",
+            "sourceColumn": "Store",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "VendorNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "DataType"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "c0e94691-3ec1-4b46-942c-3982ccebc6ce",
+            "sourceColumn": "VendorNo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Quantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "7fdc0ace-3c7e-49bd-81c1-eba135cb3866",
+            "sourceColumn": "Quantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Sales",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "21d88fe9-7e9b-4d45-9a1e-9833f27710a5",
+            "sourceColumn": "Sales",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "62f8fe53-943c-4742-ad35-ff892637ff14",
+        "partitions": [
+          {
+            "name": "vendor_store_sales",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    vendor_store_sales_part1_Sheet = Source{[Item=\"vendor_store_sales_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(vendor_store_sales_part1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"Store\", Int64.Type}, {\"VendorNo\", Int64.Type}, {\"quantity\", Int64.Type}, {\"sales\", type number}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"quantity\", \"Quantity\"}, {\"sales\", \"Sales\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      },
+      {
+        "name": "vendors_sales_quantities",
+        "annotations": [
+          {
+            "name": "PBI_NavigationStepName",
+            "value": "Navigation"
+          },
+          {
+            "name": "PBI_ResultType",
+            "value": "Table"
+          }
+        ],
+        "columns": [
+          {
+            "name": "VendorNo",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "changedProperties": [
+              {
+                "property": "DataType"
+              }
+            ],
+            "dataType": "string",
+            "lineageTag": "294ca8c5-ea10-4bff-b7b1-bffde1cd2839",
+            "sourceColumn": "VendorNo",
+            "summarizeBy": "none"
+          },
+          {
+            "name": "Quantity",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ],
+            "dataType": "int64",
+            "formatString": "0",
+            "lineageTag": "33e0f359-7a37-4703-97db-1923fcfe8566",
+            "sourceColumn": "Quantity",
+            "summarizeBy": "sum"
+          },
+          {
+            "name": "Sales",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ],
+            "dataType": "double",
+            "lineageTag": "fd3c57a3-6bdb-4afd-8eeb-74b6e54f368a",
+            "sourceColumn": "Sales",
+            "summarizeBy": "sum"
+          }
+        ],
+        "lineageTag": "29c5f01d-6579-48de-adde-d1ee38e6c2fe",
+        "partitions": [
+          {
+            "name": "vendors_sales_quantities",
+            "mode": "import",
+            "source": {
+              "expression": [
+                "let",
+                "    Source = Excel.Workbook(File.Contents(\"C:\\Users\\Customer\\Documents\\Certificates&Notes\\Case_Study_2\\data_collection.xlsx\"), null, true),",
+                "    vendors_sales_quantities_part1_Sheet = Source{[Item=\"vendors_sales_quantities_part1\",Kind=\"Sheet\"]}[Data],",
+                "    #\"Promoted Headers\" = Table.PromoteHeaders(vendors_sales_quantities_part1_Sheet, [PromoteAllScalars=true]),",
+                "    #\"Changed Type\" = Table.TransformColumnTypes(#\"Promoted Headers\",{{\"VendorNo\", Int64.Type}, {\"quantity\", Int64.Type}, {\"sales\", type number}}),",
+                "    #\"Renamed Columns\" = Table.RenameColumns(#\"Changed Type\",{{\"quantity\", \"Quantity\"}, {\"sales\", \"Sales\"}})",
+                "in",
+                "    #\"Renamed Columns\""
+              ],
+              "type": "m"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

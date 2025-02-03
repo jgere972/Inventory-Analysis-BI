@@ -1,0 +1,9 @@
+{
+  "version": "4.0",
+  "datasetReference": {
+    "byPath": {
+      "path": "../Inventory Report 2016.SemanticModel"
+    },
+    "byConnection": null
+  }
+}
