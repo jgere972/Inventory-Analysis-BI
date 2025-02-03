@@ -7,3 +7,9 @@
 
 #Ignore Instructions
 Instructions/
+BegInv/
+EndInv/
+PurchasePrices/
+Prices/
+Sales/
+VendorInvoices/
