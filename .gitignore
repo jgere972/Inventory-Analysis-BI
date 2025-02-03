@@ -5,7 +5,7 @@
 *.abf 
 *.xlsx
 
-#Ignore Instructions
+#Ignore Instructions and all larges files (data) 
 Instructions/
 BegInv/
 EndInv/
@@ -13,3 +13,5 @@ PurchasePrices/
 Prices/
 Sales/
 VendorInvoices/
+
+#Data will have to be stored elsewhere
