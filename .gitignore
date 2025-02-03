@@ -1,5 +1,8 @@
 #Ignore large SQLite db file
 *.db
 
+#Other large files to ignore
+*.abf 
+
 #Ignore Instructions
 Instructions/
